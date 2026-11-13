@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Operación Extracción - FPS 3D</title>
+    <link rel="stylesheet" href="style.css">
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+          "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+        }
+      }
+    </script>
+</head>
+<body>
+
+    <!-- Pantalla de inicio -->
+    <div id="blocker">
+        <div id="instructions">
+            <h1>OPERACIÓN EXTRACCIÓN</h1>
+            <p class="subtitle">SOBREVIVE AL LABERINTO INFECTADO Y LLEGA A LA ZONA VERDE</p>
+            <div class="play-btn">HAZ CLIC AQUÍ PARA JUGAR</div>
+            <div class="controls-grid">
+                <span><strong>W A S D</strong> : Moverse</span>
+                <span><strong>SHIFT</strong> : Correr</span>
+                <span><strong>MOUSE</strong> : Apuntar</span>
+                <span><strong>CLIC IZQ</strong> : Disparar</span>
+                <span><strong>1 / 2</strong> : Cambiar Arma</span>
+                <span><strong>F</strong> : Linterna</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Destello rojo y efecto de salud crítica -->
+    <div id="damage-overlay"></div>
+    <div id="low-health-vignette"></div>
+
+    <!-- Mira central -->
+    <div id="crosshair">+</div>
+
+    <!-- HUD Superior -->
+    <div id="hud-top">
+        <div class="hud-box">
+            <span class="label">SALUD:</span>
+            <div class="health-bar-bg">
+                <div id="health-bar-fill"></div>
+            </div>
+            <span id="health-text">3 / 3</span>
+        </div>
+        <div class="hud-box">
+            <span class="label">TIEMPO:</span>
+            <span id="timer-display">00:00</span>
+        </div>
+        <div class="hud-box">
+            <span class="label">ENEMIGOS:</span>
+            <span id="zombies-left">0</span>
+        </div>
+    </div>
+
+    <!-- HUD Inferior -->
+    <div id="hud-bottom">
+        <div>
+            <div class="weapon-slot active" id="slot-1">[1] RIFLE PLASMA</div>
+            <div class="weapon-slot" id="slot-2">[2] ESCOPETA TÁCTICA</div>
+        </div>
+        <div class="ammo-box">
+            MUNICIÓN: <span id="ammo-count">15</span>
+        </div>
+    </div>
+
+    <!-- Mensaje de aviso temporal -->
+    <div id="notification"></div>
+
+    <!-- Pantalla de Derrota -->
+    <div id="game-over-screen" class="screen hidden">
+        <h1 class="danger-title">GAME OVER</h1>
+        <p>Los zombis te han eliminado en la oscuridad.</p>
+        <p id="gameover-stats" class="stats-text"></p>
+        <button onclick="location.reload()">REINTENTAR MISIÓN</button>
+    </div>
+
+    <!-- Pantalla de Victoria con Rango y Puntuación -->
+    <div id="victory-screen" class="screen hidden">
+        <h1 class="success-title">¡MISIÓN COMPLETADA!</h1>
+        <p>Has llegado a la zona de extracción con vida.</p>
+        <div id="victory-stats" class="stats-box"></div>
+        <button onclick="location.reload()">JUGAR DE NUEVO</button>
+    </div>
+
+    <script type="module" src="main.js"></script>
+</body>
+</html>

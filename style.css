@@ -1,0 +1,250 @@
+* {
+    box-sizing: border-box;
+    user-select: none;
+}
+
+body {
+    margin: 0;
+    overflow: hidden;
+    font-family: 'Consolas', 'Courier New', monospace;
+    background-color: #050505;
+}
+
+#blocker {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(15,25,15,0.85) 0%, rgba(0,0,0,0.95) 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+}
+
+#instructions {
+    text-align: center;
+    color: #e0e0e0;
+    cursor: pointer;
+    padding: 40px;
+    border: 2px solid #2ecc71;
+    background: rgba(10, 15, 10, 0.9);
+    box-shadow: 0 0 30px rgba(46, 204, 113, 0.3);
+}
+
+#instructions h1 {
+    color: #2ecc71;
+    font-size: 42px;
+    margin: 0 0 10px 0;
+    letter-spacing: 3px;
+}
+
+.subtitle {
+    color: #aaa;
+    margin-bottom: 25px;
+}
+
+.play-btn {
+    display: inline-block;
+    padding: 15px 30px;
+    background: #2ecc71;
+    color: #000;
+    font-weight: bold;
+    font-size: 20px;
+    margin-bottom: 25px;
+    transition: transform 0.1s;
+}
+
+.play-btn:hover {
+    transform: scale(1.05);
+}
+
+.controls-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px 25px;
+    text-align: left;
+    font-size: 14px;
+    color: #ccc;
+}
+
+/* Destello rojo al recibir daño */
+#damage-overlay {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle, transparent 40%, rgba(231, 76, 60, 0.8) 100%);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease-out;
+    z-index: 15;
+}
+
+/* Viñeta pulsante cuando queda 1 de vida */
+#low-health-vignette {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle, transparent 50%, rgba(180, 0, 0, 0.65) 100%);
+    opacity: 0;
+    pointer-events: none;
+    z-index: 14;
+}
+
+.critical-pulse {
+    animation: heartbeatPulse 1s infinite ease-in-out;
+}
+
+@keyframes heartbeatPulse {
+    0%, 100% { opacity: 0.25; }
+    50% { opacity: 0.85; }
+}
+
+/* Mira central */
+#crosshair {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #00ff66;
+    font-size: 26px;
+    font-weight: bold;
+    text-shadow: 0 0 6px #00ff66;
+    pointer-events: none;
+    z-index: 10;
+}
+
+/* HUD Superior */
+#hud-top {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    right: 20px;
+    display: flex;
+    justify-content: space-between;
+    pointer-events: none;
+    z-index: 10;
+}
+
+.hud-box {
+    background: rgba(0, 0, 0, 0.7);
+    border: 1px solid #333;
+    border-left: 4px solid #2ecc71;
+    padding: 10px 16px;
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.health-bar-bg {
+    width: 150px;
+    height: 16px;
+    background: #222;
+    border: 1px solid #555;
+}
+
+#health-bar-fill {
+    width: 100%;
+    height: 100%;
+    background: #2ecc71;
+    transition: width 0.25s, background-color 0.25s;
+}
+
+/* HUD Inferior */
+#hud-bottom {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    right: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    pointer-events: none;
+    z-index: 10;
+}
+
+.weapon-slot {
+    background: rgba(0, 0, 0, 0.65);
+    color: #777;
+    padding: 8px 14px;
+    border: 1px solid #333;
+    margin-right: 10px;
+    display: inline-block;
+}
+
+.weapon-slot.active {
+    color: #2ecc71;
+    border-color: #2ecc71;
+    font-weight: bold;
+}
+
+.ammo-box {
+    background: rgba(0, 0, 0, 0.75);
+    border: 1px solid #2ecc71;
+    color: #2ecc71;
+    padding: 12px 24px;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+#notification {
+    position: absolute;
+    top: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #f1c40f;
+    font-size: 18px;
+    font-weight: bold;
+    text-shadow: 0 2px 4px #000;
+    pointer-events: none;
+    z-index: 12;
+}
+
+/* Pantallas finales */
+.screen {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.92);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    z-index: 200;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.danger-title { color: #e74c3c; font-size: 54px; margin-bottom: 10px; }
+.success-title { color: #2ecc71; font-size: 48px; margin-bottom: 10px; }
+
+.stats-box {
+    background: rgba(20, 30, 20, 0.85);
+    border: 1px solid #2ecc71;
+    padding: 20px 35px;
+    margin: 15px 0;
+    text-align: left;
+    line-height: 1.8;
+    font-size: 18px;
+}
+
+.stats-text {
+    color: #aaa;
+    font-size: 16px;
+}
+
+.screen button {
+    padding: 14px 28px;
+    font-size: 18px;
+    font-family: inherit;
+    background: #2ecc71;
+    color: #000;
+    border: none;
+    cursor: pointer;
+    margin-top: 20px;
+    font-weight: bold;
+}
+
+.screen button:hover {
+    background: #27ae60;
+}
